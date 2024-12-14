@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-int	ft_countwords(char const *s, char c)
+int	ft_countwords(char *s, char c)
 {
 	int	count;
 
@@ -18,7 +18,7 @@ int	ft_countwords(char const *s, char c)
 	return (count);
 }
 
-int	ft_countchars(char const *s, char c)
+int	ft_countchars(char *s, char c)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	ft_countchars(char const *s, char c)
 	return (i);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**str;
 	int		len;

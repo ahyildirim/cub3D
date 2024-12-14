@@ -143,7 +143,7 @@ int	check_horizontal(char **map, int i, int j, int flag)
 
 int check_vertical(char **map, int i, int j, int flag)
 {
-	while (map[i][++j])
+	while (map[0][++j])
 	{
 		flag = 0;
 		i = -1;
@@ -202,6 +202,19 @@ int	create_map(t_data *data, char *map_name)
 		return (printf("Map must be covered with walls!"), 0);
 	close(fd);
 	return (1);
+}
+
+int initialize(t_data *data, char **av)
+{
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return (0);
+	if (!create_map(data, av[1]))
+		return (0);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, SCREEN_HEIGHT, SCREEN_WIDTH, "cub3d");
+	if(!data->win_ptr)
+		return (0);
+	
 }
 
 int	main(int ac, char **argv)

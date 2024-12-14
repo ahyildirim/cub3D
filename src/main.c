@@ -106,9 +106,64 @@ int normalize_map(char **map, int width)
 	return (1);
 }
 
+/*
+	Yatay olarak duvardan önce 0NSWE karakterlerinden biri gelemeyeceği için bunun kontrolü
+	ve boşluk karakteri var ise bundan önce 0NSWE karakterleri gelemeyeceği için bunun kontrolü
+	yapılır. Flag duvardan sonra olup olmadığının kontrolünü sağlamak için.
+*/
+
 int	check_horizontal(char **map, int i, int j, int flag)
 {
+	while (map[++i])
+	{
+		j = -1;
+		flag = 0;
+		while (map[i][++j])
+		{
+			if (flag == 0 && map[i][j] == '1')
+				flag ^= 1;
+			if (flag == 0 && ft_strchr("0NSWE", map[i][j]))
+				return (0);
+			if (flag == 1 && map[i][j] == ' ')
+			{
+				if (map[i][j - 1] && ft_strchr("0NSWE", map[i][j - 1]))
+					return (0);
+				flag ^= 1;
+			}
+			if (!map[i][j + 1] && ft_strchr("0NSWE", map[i][j]))
+				return (0);
+		}
+	}
+	return (1);
+}
 
+/*
+	Yatay ile aynı mantıkta bu sefer dikey bir şekilde kontrol ediyoruz.
+*/
+
+int check_vertical(char **map, int i, int j, int flag)
+{
+	while (map[i][++j])
+	{
+		flag = 0;
+		i = -1;
+		while (map[++i] && map[i][j])
+		{
+			if (flag == 0 && map[i][j] == '1')
+				flag ^= 1;
+			if (flag == 0 && ft_strchr("0NSWE", map[i][j]))
+				return (0);
+			if (flag == 1 && map[i][j] == ' ')
+			{
+				if (map[i - 1 ] && map[i - 1][j] && ft_strchr("0NSWE", map[i - 1][j]))
+					return (0);
+				flag ^= 1;
+			}
+			if (!map[i + 1] && ft_strchr("0NSWE", map[i][j]))
+				return (0);
+		}
+	}
+	return (1);
 }
 
 /*
@@ -117,9 +172,9 @@ int	check_horizontal(char **map, int i, int j, int flag)
 
 int check_map(char **map)
 {
-	if (!check_horizontal(map, -1, -1, 0)) //TODO
+	if (!check_horizontal(map, -1, -1, 0))
 		return (0);
-	if (!check_vertical(map, -1, -1, 0)) //TODO
+	if (!check_vertical(map, -1, -1, 0))
 		return (0);
 	return (1);
 }
@@ -153,4 +208,9 @@ int	main(int ac, char **argv)
 {
 	if (ac != 2)
 		printf("Please insert a map!");
+	t_data *data;
+
+	data = (t_data *)malloc(sizeof(t_data));
+	int x = create_map(data, argv[1]);
+	printf("%d\n", x);
 }

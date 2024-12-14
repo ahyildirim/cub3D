@@ -5,7 +5,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 
+# include "macro.h"
 # include "../gnl/get_next_line.h"
+# include "../mlx_linux/mlx.h"
 
 typedef struct s_map
 {
@@ -16,8 +18,9 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	void	*mlx_ptr;
+	void	*win_ptr;
 	t_map	*map;
-
 }				t_data;
 
 int		ft_strcmp(char *str1, char *str2);

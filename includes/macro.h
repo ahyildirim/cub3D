@@ -3,6 +3,7 @@
 
 # define SCREEN_HEIGHT 1024
 # define SCREEN_WIDTH 768
+# define FOV 0.6
 
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3

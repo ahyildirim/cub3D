@@ -9,18 +9,46 @@
 # include "../gnl/get_next_line.h"
 # include "../mlx_linux/mlx.h"
 
+typedef struct s_vectord
+{
+	double	x;
+	double	y;
+}				t_vectord;
+
+typedef struct s_player
+{
+	t_vectord	pos;
+	t_vectord	dir;
+	t_vectord	plane;
+}				t_player;
+
+typedef struct s_onkey
+{
+	int	key_w;
+	int	key_a;
+	int	key_s;
+	int	key_d;
+	int	key_up;
+	int	key_down;
+	int	key_left;
+	int	key_right;
+}				t_onkey;
+
 typedef struct s_map
 {
 	char	**map_array;
 	size_t	height;
 	size_t	width;
+	int		players;
 }				t_map;
 
 typedef struct s_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_map	*map;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_onkey		onkey;
+	t_map		*map;
+	t_player	*player;
 }				t_data;
 
 int		ft_strcmp(char *str1, char *str2);

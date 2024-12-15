@@ -204,6 +204,103 @@ int	create_map(t_data *data, char *map_name)
 	return (1);
 }
 
+void	init_key_events(t_data *data)
+{
+	data->onkey.key_w = 0;
+	data->onkey.key_a = 0;
+	data->onkey.key_s = 0;
+	data->onkey.key_d = 0;
+	data->onkey.key_up = 0;
+	data->onkey.key_down = 0;
+	data->onkey.key_left = 0;
+	data->onkey.key_right = 0;
+}
+
+void	set_plane(t_data *data, char player)
+{
+	if (player == 'N')
+	{
+		data->player->dir.x = FOV;
+		data->player->dir.y = 0;
+	}
+	else if (player == 'S')
+	{
+		data->player->dir.x = -FOV;
+		data->player->dir.y = 0;
+	}
+	else if (player == 'W')
+	{
+		data->player->dir.x = 0;
+		data->player->dir.y = -FOV;
+	}
+	else if (player == 'E')
+	{
+		data->player->dir.x = 0;
+		data->player->dir.y = FOV;
+	}
+}
+
+void	set_player_dir(t_data *data, char player)
+{
+	if (player == 'N')
+	{
+		data->player->dir.x = 0;
+		data->player->dir.y = -1;
+	}
+	else if (player == 'S')
+	{
+		data->player->dir.x = 0;
+		data->player->dir.y = 1;
+	}
+	else if (player == 'W')
+	{
+		data->player->dir.x = -1;
+		data->player->dir.y = 0;
+	}
+	else if (player == 'E')
+	{
+		data->player->dir.x = 1;
+		data->player->dir.y = 0;
+	}
+	set_plane(data, player);
+}
+
+/*
+	Mapin içinde gezerek karakterin konumunu yönünü ve düzlemini aldığımız fonksiyon.
+	Ayrıca karakter sayısını sayar ve birden fazla ise hata döndürür.
+*/
+
+int initialize_player(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	data->player = (t_player *)malloc(sizeof(t_player));
+	while (data->map->map_array[++i])
+	{
+		j = -1;
+		while (data->map->map_array[i][++j])
+		{
+			if (ft_strchr("NSEW", data->map->map_array[i][j]))
+			{
+				data->player->pos.x = (double)j + 0.5; //+0.5 olmasının sebebi arraydeki her karakter, 1'e 1 düşünürsek oyuncuyu tam ortadan başlatabilmek için.
+				data->player->pos.y = (double)i + 0.5;
+				data->map->players++;
+				set_player_dir(data, data->map->map_array[i][j]);
+			}
+		}
+	}
+	if (data->map->players == 1)
+		return (1);
+	return (printf("The map cannot contain more than one player!"), 0);
+}
+
+/*
+	Haritayı, oyuncuyu, eventleri, mlx hooklarını ve looplarını
+	oluşturduğumuz ana fonksiyon.
+*/
+
 int initialize(t_data *data, char **av)
 {
 	data->mlx_ptr = mlx_init();
@@ -212,9 +309,12 @@ int initialize(t_data *data, char **av)
 	if (!create_map(data, av[1]))
 		return (0);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, SCREEN_HEIGHT, SCREEN_WIDTH, "cub3d");
-	if(!data->win_ptr)
+	if (!data->win_ptr)
 		return (0);
-	
+	init_key_events(data);
+	data->map->players = 0;
+	if (!initialize_player(data))
+		return (0);
 }
 
 int	main(int ac, char **argv)

@@ -1,16 +1,15 @@
 #include "../../includes/cub3d.h"
 
-char	*ft_strdup(char *s)
+char	*ft_strdup(char *src)
 {
-	char	*str;
-	size_t	i;
+	size_t	size;
+	char	*dest;
 
-	i = -1;
-	str = (char *) malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!str)
-		return (NULL);
-	while (s[++i])
-		str[i] = s[i];
-	str[i] = '\0';
-	return (str);
+	size = ft_strlen(src);
+	dest = (char *)malloc(size * sizeof(char) + 1);
+	if (dest == NULL)
+		return (0);
+	ft_memcpy(dest, src, size);
+	dest[size] = '\0';
+	return (dest);
 }

@@ -81,11 +81,13 @@ int	load_sprites(int fd, t_data *data)
 	while (1)
 	{
 		sprite_path = get_next_line(fd);
-		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
-			return (0);
 		if (!sprite_path)
 			break;
+		//printf("sprite_path : %s\n", sprite_path);
+		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
+			return (0);
 	}
+	//printf("döngü çıkışı \n");
 	return (1);
 }
 
@@ -105,6 +107,7 @@ int	create_map(t_data *data, char *map_name)
 		return (printf("File not found: %s!\n", map_name), 0);
 	if (!load_sprites(fd, data)) //Sprite'ları yükleme.
 		return (printf("An error occured while loading sprites."), 0);
+	printf("geldi");
 	data->map->map_array = read_map(data, fd); //Dosyanın içeriğini okuma.
 	if (!data->map->map_array)
 		return (printf("An error occured while reading map."), 0);

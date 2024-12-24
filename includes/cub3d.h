@@ -5,7 +5,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <X11/keysym.h>
+//# include <X11/keysym.h>
 
 # include "macro.h"
 # include "../gnl/get_next_line.h"

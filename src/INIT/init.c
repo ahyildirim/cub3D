@@ -53,8 +53,8 @@ int initialize(t_data *data, char **av)
 		return (0);
 	if (!initialize_img(data))
 		return (0);
-	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 0, key_up, data);
+	//mlx_hook(data->win_ptr, ON_KEYUP, 1L << 0, key_up, data);
 	mlx_hook(data->win_ptr, ON_DESTROY, 1L << 0, quit_game, data);
-	mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
+	//mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
 	return (1);
 }

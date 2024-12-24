@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.py": "python",
+		"cub3d.h": "c"
+	}
+}

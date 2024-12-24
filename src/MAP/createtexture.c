@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-static void	trim_spaces(char *str)
+static void trim_spaces(char *str)
 {
 	int	i;
 	int	j;
@@ -9,6 +9,11 @@ static void	trim_spaces(char *str)
 	i = 0;
 	j = 0;
 	len = ft_strlen(str);
+	if (!str) // str NULL ise hata ver veya bir şey yapmadan dön
+	{
+        printf("Error: trim_spaces received a NULL pointer.\n");
+		return ;
+	}
 	// Başlangıçtaki boşlukları kaldır
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
@@ -25,8 +30,19 @@ static void	trim_spaces(char *str)
 	if (j > 0 && str[j - 1] == ' ')
 		j--;
 	str[j] = '\0'; // Stringin sonunu belirle
+	//printf("burada trim %d", str[j-1]);
 /* 	printf("len = %ld\n", ft_strlen(str)); //DEBUG */
 }
+/* char *remove_newline(char *str)
+{
+    size_t len = ft_strlen(str);
+    char *cleaned = ft_strdup(str);
+    
+    if (cleaned[len - 1] == '\n')
+        cleaned[len - 1] = '\0';
+    return cleaned;
+} */
+
 #include <string.h>
 static int	init_texture(int i, t_data *data, char *path)
 {
@@ -37,7 +53,10 @@ static int	init_texture(int i, t_data *data, char *path)
 	size = 64;
 	data->texture.xpm[i] = (t_img *)malloc(sizeof(t_img));
 	img = data->texture.xpm[i];
+	//texture = remove_newline(path);
 	texture = ft_strndup(path, ft_strlen(path));
+	if (texture[ft_strlen(texture) - 1] == '\n')
+		texture[ft_strlen(texture) - 1] = '\0';
 /* 	char str[100] = "./north.xpm"; //DEBUG
 	for(size_t i = 0; i < ft_strlen(texture); i++) //DEBUG
 		printf("texture[i] = %c\n", texture[i]);
@@ -49,6 +68,7 @@ static int	init_texture(int i, t_data *data, char *path)
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, &img->line_length, &img->endian);
 	if (!img->addr)
 		return (0);
+	//printf("GELDİ %s", texture);
 	if (texture)
 		free(texture);
 	return (1);
@@ -77,7 +97,7 @@ static int	check_format(t_data *data, char *path)
 	{
 		if (!init_texture(3, data, path + 3))
 			return (printf("Error: Invalid EA texture path!\n"), 1);
-	}	
+	}
 	/* else if (!ft_strncmp(path, "F ", 2) || !ft_strncmp(path, "C ", 2))
 		return (get_color(data, path)); */
 	return (0);

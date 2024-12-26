@@ -29,6 +29,8 @@ static char	*read_map_text(int fd)
 		if (tmp)
 			free(tmp);
 		tmp = get_next_line(fd);
+		if (!tmp)
+			return (NULL);
 		if (ft_strncmp(tmp, "\n", 1))
 			break ;
 	}
@@ -56,6 +58,8 @@ static char	**read_map(t_data *data, int fd)
 	char	*double_newline;
 
 	map_text = read_map_text(fd); //Tüm içerği al.
+	if (!map_text)
+		return (0);
 	double_newline = ft_strnstr(map_text, "\n\n", ft_strlen(map_text)); //Eğer map texti içinde iki adet newline varsa hatalıdır. Bunu kontrol et.
 	if (double_newline)
 		return (0);
@@ -83,11 +87,12 @@ int	load_sprites(int fd, t_data *data)
 		sprite_path = get_next_line(fd);
 		if (!sprite_path)
 			break;
-		//printf("sprite_path : %s\n", sprite_path);
 		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
 			return (0);
+		free(sprite_path);
+		if (data->texture.bottom && data->texture.top)
+			break;
 	}
-	//printf("döngü çıkışı \n");
 	return (1);
 }
 
@@ -107,7 +112,6 @@ int	create_map(t_data *data, char *map_name)
 		return (printf("File not found: %s!\n", map_name), 0);
 	if (!load_sprites(fd, data)) //Sprite'ları yükleme.
 		return (printf("An error occured while loading sprites."), 0);
-	printf("geldi");
 	data->map->map_array = read_map(data, fd); //Dosyanın içeriğini okuma.
 	if (!data->map->map_array)
 		return (printf("An error occured while reading map."), 0);

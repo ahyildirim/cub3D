@@ -5,7 +5,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-//# include <X11/keysym.h>
+# include <X11/keysym.h>
 
 # include "macro.h"
 # include "../gnl/get_next_line.h"
@@ -73,6 +73,7 @@ typedef struct s_data
 
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *s1, char *s2, size_t n);
+int		ft_atoi(char *str);
 int		create_map(t_data *data, char *map_name);
 int		check_map(char **map);
 int 	normalize_map(char **map, int width);

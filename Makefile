@@ -14,6 +14,7 @@ SRCS        :=      gnl/get_next_line.c \
                           src/LIBFT/ft_strndup.c \
                           src/LIBFT/ft_memmove.c \
                           src/LIBFT/ft_memcpy.c \
+                          src/LIBFT/ft_atoi.c \
                           src/INIT/init.c \
                           src/INIT/playerinit.c \
                           src/MAP/readmap.c \
@@ -67,5 +68,3 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re
-
-

@@ -21,7 +21,7 @@ int initialize_img(t_data *data)
 	if (!data->img)
 		return (0);
 	// Yeni resim oluştur ve img_ptr değişkenine at
-	data->img->img_ptr = mlx_new_image(data->mlx_ptr, SCREEN_HEIGHT, SCREEN_WIDTH);
+	data->img->img_ptr = mlx_new_image(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!data->img->img_ptr)
 		return (0);
 	// Data->img->addr değişkenine resmin adresini al.
@@ -29,6 +29,7 @@ int initialize_img(t_data *data)
 	if (!data->img->addr)
 		return (0);
 	
+    //mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->img_ptr, 0, 0);
 	return (1);
 }
 
@@ -44,7 +45,7 @@ int initialize(t_data *data, char **av)
 		return (0);
 	if (!create_map(data, av[1]))
 		return (0);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, SCREEN_HEIGHT, SCREEN_WIDTH, "cub3d");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
 	if (!data->win_ptr)
 		return (0);
 	init_key_events(data);
@@ -53,8 +54,9 @@ int initialize(t_data *data, char **av)
 		return (0);
 	if (!initialize_img(data))
 		return (0);
-	//mlx_hook(data->win_ptr, ON_KEYUP, 1L << 0, key_up, data);
+	//mlx_loop_hook(data->mlx_ptr, render_frame, data);  // Add this line
+	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 0, key_up, data);
+	mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
 	mlx_hook(data->win_ptr, ON_DESTROY, 1L << 0, quit_game, data);
-	//mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
 	return (1);
 }

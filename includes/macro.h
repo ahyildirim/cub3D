@@ -1,9 +1,14 @@
 #ifndef MACRO_H
 # define MACRO_H
 
-# define SCREEN_HEIGHT 1024
-# define SCREEN_WIDTH 768
+# define BLOCK_SIZE 64
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
 # define FOV 0.6
+# define LEFT 65361
+# define RIGHT 65363
+
+# define PI 3.14159265359
 
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3

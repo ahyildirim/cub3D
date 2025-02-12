@@ -1,6 +1,20 @@
 {
 	"files.associations": {
 		"*.py": "python",
-		"cub3d.h": "c"
+		"__bit_reference": "c",
+		"__hash_table": "c",
+		"__split_buffer": "c",
+		"array": "c",
+		"deque": "c",
+		"initializer_list": "c",
+		"ios": "c",
+		"string": "c",
+		"string_view": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"cub3d.h": "c",
+		"stdbool.h": "c",
+		"get_next_line.h": "c",
+		"mlx.h": "c"
 	}
 }

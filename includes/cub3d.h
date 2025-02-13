@@ -7,7 +7,7 @@
 # include <stdlib.h>
 # include <math.h>
 #include <stdbool.h>
-//# include <X11/keysym.h>
+# include <X11/keysym.h>
 
 # include "macro.h"
 # include "../gnl/get_next_line.h"

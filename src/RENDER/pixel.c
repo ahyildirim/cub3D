@@ -3,7 +3,11 @@
 void    put_pixel(int x, int y, int color, t_data *data)
 {
     if (x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT || x < 0 || y < 0)
+	{
         return;
+	}
+	if (!data->img->addr)
+		return;
     int index = y * data->img->line_length + x * data->img->bits_per_pixel / 8;
     data->img->addr[index] = color & 0xFF;
     data->img->addr[index + 1] = (color >> 8) & 0xFF;

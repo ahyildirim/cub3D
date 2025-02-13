@@ -29,7 +29,7 @@ int initialize_img(t_data *data)
 	if (!data->img->addr)
 		return (0);
 	
-    //mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->img_ptr, 0, 0);
+    mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->img_ptr, 0, 0);
 	return (1);
 }
 
@@ -55,7 +55,7 @@ int initialize(t_data *data, char **av)
 	if (!initialize_img(data))
 		return (0);
 	//mlx_loop_hook(data->mlx_ptr, render_frame, data);  // Add this line
-	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 0, key_up, data);
+	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 1, key_up, data);
 	mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
 	mlx_hook(data->win_ptr, ON_DESTROY, 1L << 0, quit_game, data);
 	return (1);

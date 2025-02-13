@@ -27,7 +27,8 @@ SRCS        :=      gnl/get_next_line.c \
                           src/EVENTS/keyevents.c \
                           src/RENDER/render.c \
 						  src/RENDER/pixel.c \
-						  src/RENDER/move.c
+						  src/RENDER/move.c \
+						  src/FREE/free.c
 
 OBJS        := $(SRCS:.c=.o)
 .c.o:

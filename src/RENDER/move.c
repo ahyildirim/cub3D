@@ -25,7 +25,7 @@ void move_player(t_data *data)
         {
             data->player->pos.x += cos_angle * speed;
             data->player->pos.y += sin_angle * speed;
-        }
+		}
     }
     if (data->onkey.key_s)
     {
@@ -37,18 +37,18 @@ void move_player(t_data *data)
     }
     if (data->onkey.key_a)
     {
-        if (!touch(data->player->pos.x + cos_angle * speed, data->player->pos.y - sin_angle * speed, data))
+        if (!touch(data->player->pos.x + sin_angle * speed, data->player->pos.y - cos_angle * speed, data))
         {
-            data->player->pos.x += cos_angle * speed;
-            data->player->pos.y -= sin_angle * speed;
+            data->player->pos.x += sin_angle * speed;
+            data->player->pos.y -= cos_angle * speed;
         }
     }
     if (data->onkey.key_d)
     {
-        if (!touch(data->player->pos.x - cos_angle * speed, data->player->pos.y + sin_angle * speed, data))
+        if (!touch(data->player->pos.x - sin_angle * speed, data->player->pos.y + cos_angle * speed, data))
         {
-            data->player->pos.x -= cos_angle * speed;
-            data->player->pos.y += sin_angle * speed;
+            data->player->pos.x -= sin_angle * speed;
+            data->player->pos.y += cos_angle * speed;
         }
     }
 }

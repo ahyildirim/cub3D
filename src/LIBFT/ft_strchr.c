@@ -2,10 +2,9 @@
 
 char	*ft_strchr(char *s, int c)
 {
+	while (*s && *s != (char)c)
+		s++;
 	if (*s == (char)c)
 		return ((char *)s);
-	while (*s++)
-		if (*s == (char)c)
-			return ((char *)s);
-	return (0);
+	return (NULL);
 }

@@ -87,22 +87,22 @@ static int	check_format(t_data *data, char *path)
 {
 	if (!ft_strncmp(path, "NO ", 3))
 	{
-		if (!init_texture(0, data, path + 3))
+		if (!init_texture(NORTH, data, path + 3))
 			return (printf("Error: Invalid NO texture path!\n"), 1);
 	}
 	else if (!ft_strncmp(path, "SO ", 3))
 	{
-		if (!init_texture(1, data, path + 3))
+		if (!init_texture(SOUTH, data, path + 3))
 			return (printf("Error: Invalid SO texture path!\n"), 1);
 	}
 	else if (!ft_strncmp(path, "WE ", 3))
 	{
-		if (!init_texture(2, data, path + 3))
+		if (!init_texture(WEST, data, path + 3))
 			return (printf("Error: Invalid WE texture path!\n"), 1);
 	}
 	else if (!ft_strncmp(path, "EA ", 3))
 	{
-		if (!init_texture(3, data, path + 3))
+		if (!init_texture(EAST, data, path + 3))
 			return (printf("Error: Invalid EA texture path!\n"), 1);
 	}
 	else if (!ft_strncmp(path, "F ", 2) || !ft_strncmp(path, "C ", 2))

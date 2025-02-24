@@ -11,7 +11,6 @@ static void	init_key_events(t_data *data)
 	data->onkey.key_left = 0;
 	data->onkey.key_right = 0;
 }
-
 /*
 	Image structını başlat ve doldur.
 */
@@ -40,7 +39,9 @@ int initialize_img(t_data *data)
 
 int initialize(t_data *data, char **av)
 {
-	data->mlx_ptr = mlx_init();
+	data->texture.bottom = 0;
+	data->texture.top = 0;
+	(data)->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (0);
 	if (!create_map(data, av[1]))
@@ -50,6 +51,7 @@ int initialize(t_data *data, char **av)
 		return (0);
 	init_key_events(data);
 	data->map->players = 0;
+	printf("%ld\n", data->map->width);
 	if (!initialize_player(data))
 		return (0);
 	if (!initialize_img(data))

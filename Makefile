@@ -24,11 +24,12 @@ SRCS        :=      gnl/get_next_line.c \
                           src/MAP/createtexture.c \
                           src/MAP/normalizemap.c \
                           src/main.c \
-                          src/EVENTS/keyevents.c \
-                          src/RENDER/render.c \
-						  src/RENDER/pixel.c \
-						  src/RENDER/move.c \
-						  src/FREE/free.c
+						  src/EVENTS/keyevents.c \
+						  src/EVENTS/move.c \
+						  src/RENDER/draw.c \
+						  src/RENDER/draw_texture.c \
+						  src/RENDER/raycast_dda.c \
+						  src/FREE/free.c \
 
 OBJS        := $(SRCS:.c=.o)
 .c.o:

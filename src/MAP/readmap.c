@@ -23,18 +23,16 @@ static char	*read_map_text(int fd)
 	char	*str;
 	char	*tmp;
 
-	tmp = NULL;
+	tmp = 0;
 	while (1) //Map'den önce istenildiği kadar newline atılabileceği için önce bu newline'ları geçmek için bir döngü.
 	{
 		if (tmp)
 			free(tmp);
 		tmp = get_next_line(fd);
-		if (!tmp)
-			return (NULL);
 		if (ft_strncmp(tmp, "\n", 1))
 			break ;
 	}
-	str = NULL;
+	str = 0;
 	while (1) //Ardından mapi tek tek okuyup tüm hepsini birleştiren kod. Örneğin 111111\n10000001\n10000001\n11111111 gibi.
 	{
 		str = ft_strjoin(str, tmp);
@@ -85,8 +83,6 @@ int	load_sprites(int fd, t_data *data)
 	while (1)
 	{
 		sprite_path = get_next_line(fd);
-		if (!sprite_path)
-			break;
 		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
 			return (0);
 		free(sprite_path);

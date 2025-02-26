@@ -122,9 +122,14 @@ int		key_down(int keycode, t_data *data);
 int		quit_game(t_data *data);
 int		create_textures(t_data *data, char *path);
 int 	move(t_data *data);
+int		error_free(char *msg, t_data *data, int error_mod);
 
 void	draw(t_data *data);
 void	fill_texture(t_raycast *ray, t_data *data, int i);
+void	free_data(t_data *data);
+void	free_map(t_data *data);
+void	free_textures(t_data *data);
+void	free_img(t_data *data);
 
 t_raycast	create_ray(t_raycast *ray, t_data *data);
 t_raycast	calc_ray_len(t_raycast *ray, t_data *data);

@@ -102,19 +102,19 @@ int	create_map(t_data *data, char *map_name)
 
 	data->map = (t_map *)malloc(sizeof(t_map));
 	if (ft_strlen(map_name) < 5 || !check_extension(map_name)) //Sadece .cub isimli dosya veya .cub uzantısı olmayan dosya kontrolü.
-		return (printf("Wrong file format! Usage: map_name.cub\n"), 0);
+		return (error_free("Wrong file format! Usage: map_name.cub\n", data, 0));
 	fd = open(map_name, O_RDONLY); //Dosyayı açma.
 	if (fd < 0)
-		return (printf("File not found: %s!\n", map_name), 0);
+		return (error_free("File not found!", data, 0));
 	if (!load_sprites(fd, data)) //Sprite'ları yükleme.
-		return (printf("An error occured while loading sprites."), 0);
+		return (error_free("An error occured while loading sprites.", data, 1));
 	data->map->map_array = read_map(data, fd); //Dosyanın içeriğini okuma.
 	if (!data->map->map_array)
-		return (printf("An error occured while reading map."), 0);
+		return (error_free("An error occured while reading map.", data, 1));
 	if (!normalize_map(data->map->map_array, data->map->width))
-		return (printf("Invalid characters found!"), 0);
+		return (error_free("Invalid characters found!", data, 1));
 	if (!check_map(data->map->map_array))
-		return (printf("Map must be covered with walls!"), 0);
+		return (error_free("Map must be covered with walls!", data ,1));
 	close(fd);
 	return (1);
 }

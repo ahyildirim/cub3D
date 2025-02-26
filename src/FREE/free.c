@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-void	free_arr(void **arr)
+static void	free_arr(char **arr)
 {
 	size_t	i;
 
@@ -17,13 +17,14 @@ void	free_arr(void **arr)
 	}
 }
 
-static void	free_map(t_data *data)
+void free_map(t_data *data)
 {
 	if (data->map)
-		free_arr((void **)data->map);
+		free_arr(data->map->map_array);
+	free(data->map);
 }
 
-static void free_textures(t_data *data)
+void free_textures(t_data *data)
 {
 	int i;
 	
@@ -39,7 +40,7 @@ static void free_textures(t_data *data)
 	}
 }
 
-static void free_img(t_data *data)
+void free_img(t_data *data)
 {
 	if (data->img)
 	{
@@ -49,10 +50,10 @@ static void free_img(t_data *data)
 	}
 }
 
-int free_data(t_data *data)
+void free_data(t_data *data)
 {
 	if (!data)
-		return (0);
+		return;
 	free_map(data);
 	if (data->player)
 		free(data->player);
@@ -61,10 +62,13 @@ int free_data(t_data *data)
 	if (data->mlx_ptr)
 	{
 		if (data->win_ptr)
+		{
 			mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		// mlx_destroy_display(data->mlx_ptr);  // Linux'ta gerekli
+			data->win_ptr = NULL;
+		}
+		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
+		data->mlx_ptr = NULL;
 	}
 	free(data);
-	return (0);
 }

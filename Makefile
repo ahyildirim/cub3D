@@ -30,6 +30,7 @@ SRCS        :=      gnl/get_next_line.c \
 						  src/RENDER/draw_texture.c \
 						  src/RENDER/raycast_dda.c \
 						  src/FREE/free.c \
+						  src/FREE/errorfree.c \
 
 OBJS        := $(SRCS:.c=.o)
 .c.o:

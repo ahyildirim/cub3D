@@ -51,12 +51,10 @@ int initialize(t_data *data, char **av)
 		return (0);
 	init_key_events(data);
 	data->map->players = 0;
-	printf("%ld\n", data->map->width);
 	if (!initialize_player(data))
 		return (0);
 	if (!initialize_img(data))
 		return (0);
-	//mlx_loop_hook(data->mlx_ptr, render_frame, data);  // Add this line
 	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 1, key_up, data);
 	mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, key_down, data);
 	mlx_hook(data->win_ptr, ON_DESTROY, 1L << 0, quit_game, data);

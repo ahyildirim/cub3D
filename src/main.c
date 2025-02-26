@@ -2,9 +2,8 @@
 
 int	quit_game(t_data *data)
 {
-    int ex = mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-    free(data);
-	exit(ex);
+    free_data(data);
+    exit(0);
 	return (1);
 }
 

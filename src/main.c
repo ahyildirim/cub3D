@@ -21,6 +21,9 @@ int main(int ac, char **argv)
     t_data *data;
 
     data = (t_data *)malloc(sizeof(t_data));
+    if (!data)
+        return (0);
+    ft_memset(data, 0, sizeof(t_data));
     if (!initialize(data, argv))
         return (0);
     mlx_loop_hook(data->mlx_ptr, game_loop, data);

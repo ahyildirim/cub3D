@@ -28,6 +28,8 @@ void free_textures(t_data *data)
 {
 	int i;
 	
+	if (!data || !data->texture.xpm)
+		return;
 	i = -1;
 	while (++i < 4)
 	{

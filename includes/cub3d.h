@@ -126,6 +126,8 @@ int		error_free(char *msg, t_data *data, int error_mod);
 
 void	draw(t_data *data);
 void	fill_texture(t_raycast *ray, t_data *data, int i);
+void 	trim_spaces(char *str);
+void	clear_newline(char *str);
 void	free_data(t_data *data);
 void	free_map(t_data *data);
 void	free_textures(t_data *data);
@@ -149,6 +151,7 @@ int		ft_atoi(char *str);
 
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
 
 
 

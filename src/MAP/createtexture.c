@@ -1,37 +1,5 @@
 #include "../../includes/cub3d.h"
 
-static void trim_spaces(char *str)
-{
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	j = 0;
-	len = ft_strlen(str);
-	if (!str) // str NULL ise hata ver veya bir şey yapmadan dön
-	{
-        printf("Error: trim_spaces received a NULL pointer.\n");
-		return ;
-	}
-	// Başlangıçtaki boşlukları kaldır
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	// Fazladan boşlukları kaldır ve stringi sıkıştır
-	while (i < len)
-	{
-		if (str[i] != ' ' && str[i] != '\t')
-			str[j++] = str[i];
-		else if (j > 0 && str[j - 1] != ' ') // Birden fazla boşluk varsa tekine indir
-			str[j++] = ' ';
-		i++;
-	}
-	// Sona kalan fazladan boşlukları kaldır
-	if (j > 0 && str[j - 1] == ' ')
-		j--;
-	str[j] = '\0'; // Stringin sonunu belirle
-}
-
 static int	init_texture(int i, t_data *data, char *path)
 {
 	int		size;
@@ -42,14 +10,19 @@ static int	init_texture(int i, t_data *data, char *path)
 	data->texture.xpm[i] = (t_img *)malloc(sizeof(t_img));
 	img = data->texture.xpm[i];
 	texture = ft_strndup(path, ft_strlen(path));
-	if (texture[ft_strlen(texture) - 1] == '\n')
-		texture[ft_strlen(texture) - 1] = '\0';
+	clear_newline(texture);
 	img->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, texture, &size, &size);
 	if (!img->img_ptr)
+	{
+		free(texture);
 		return (0);
+	}
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, &img->line_length, &img->endian);
 	if (!img->addr)
+	{
+		free(texture);
 		return (0);
+	}
 	if (texture)
 		free(texture);
 	return (1);

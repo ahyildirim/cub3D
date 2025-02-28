@@ -20,6 +20,22 @@ int	error_free(char *msg, t_data *data, int error_mod)
 		printf("%s\n", msg);
 		if (!data)
 			return (0);
+		free(data->map);
+		free_textures(data);
+		if (data->mlx_ptr)
+		{
+			mlx_destroy_display(data->mlx_ptr);
+			free(data->mlx_ptr);
+			data->mlx_ptr = NULL;
+		}
+		free(data);
+		return (0);
+	}
+	if (error_mod == 2)
+	{
+		printf("%s\n", msg);
+		if (!data)
+			return (0);
 		free_map(data);
 		free_textures(data);
 		if (data->mlx_ptr)

@@ -17,12 +17,14 @@ SRCS        :=      gnl/get_next_line.c \
                           src/LIBFT/ft_strndup.c \
                           src/LIBFT/ft_memmove.c \
                           src/LIBFT/ft_memcpy.c \
+                          src/LIBFT/ft_memset.c \
                           src/INIT/init.c \
                           src/INIT/playerinit.c \
                           src/MAP/readmap.c \
                           src/MAP/checkmap.c \
                           src/MAP/createtexture.c \
                           src/MAP/normalizemap.c \
+						  src/MAP/utils.c \
                           src/main.c \
 						  src/EVENTS/keyevents.c \
 						  src/EVENTS/move.c \

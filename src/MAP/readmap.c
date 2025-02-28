@@ -22,6 +22,7 @@ static char	*read_map_text(int fd)
 {
 	char	*str;
 	char	*tmp;
+	char    *result;
 
 	tmp = 0;
 	while (1) //Map'den önce istenildiği kadar newline atılabileceği için önce bu newline'ları geçmek için bir döngü.
@@ -29,19 +30,21 @@ static char	*read_map_text(int fd)
 		if (tmp)
 			free(tmp);
 		tmp = get_next_line(fd);
-		if (ft_strncmp(tmp, "\n", 1))
-			break ;
+		if (!tmp || ft_strncmp(tmp, "\n", 1))
+			break;
 	}
 	str = 0;
-	while (1) //Ardından mapi tek tek okuyup tüm hepsini birleştiren kod. Örneğin 111111\n10000001\n10000001\n11111111 gibi.
+	while (tmp) //Ardından mapi tek tek okuyup tüm hepsini birleştiren kod.
 	{
 		str = ft_strjoin(str, tmp);
 		free(tmp);
 		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
 	}
-	return (str);
+	if (!str)
+		return (NULL);
+	result = ft_strdup(str); // Yeni: Temiz bir kopya oluştur
+	free(str);               // Yeni: Orijinal string'i temizle
+	return (result);
 }
 
 /*
@@ -84,7 +87,10 @@ int	load_sprites(int fd, t_data *data)
 	{
 		sprite_path = get_next_line(fd);
 		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
+		{
+			free(sprite_path);
 			return (0);
+		}
 		free(sprite_path);
 		if (data->texture.bottom && data->texture.top)
 			break;
@@ -110,11 +116,11 @@ int	create_map(t_data *data, char *map_name)
 		return (error_free("An error occured while loading sprites.", data, 1));
 	data->map->map_array = read_map(data, fd); //Dosyanın içeriğini okuma.
 	if (!data->map->map_array)
-		return (error_free("An error occured while reading map.", data, 1));
+		return (error_free("An error occured while reading map.", data, 2));
 	if (!normalize_map(data->map->map_array, data->map->width))
-		return (error_free("Invalid characters found!", data, 1));
+		return (error_free("Invalid characters found!", data, 2));
 	if (!check_map(data->map->map_array))
-		return (error_free("Map must be covered with walls!", data ,1));
+		return (error_free("Map must be covered with walls!", data ,2));
 	close(fd);
 	return (1);
 }

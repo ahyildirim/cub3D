@@ -1,6 +1,6 @@
 #include "../../includes/cub3d.h"
 
-static void	free_arr(char **arr)
+void	free_arr(char **arr)
 {
 	size_t	i;
 
@@ -19,7 +19,7 @@ static void	free_arr(char **arr)
 
 void free_map(t_data *data)
 {
-	if (data->map)
+	if (data->map->map_array)
 		free_arr(data->map->map_array);
 	free(data->map);
 }

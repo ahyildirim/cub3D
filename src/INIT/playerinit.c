@@ -77,7 +77,10 @@ int initialize_player(t_data *data)
 			}
 		}
 	}
-	if (data->map->players == 1)
-		return (1);
-	return (printf("The map cannot contain more than one player!"), 0);
+	if (data->map->players != 1)
+	{
+		free(data->player);
+		return(error_free("The map cannot contain more than one player!", data, 2));
+	}
+	return (1);
 }

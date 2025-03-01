@@ -1,0 +1,28 @@
+==1449734== 200 bytes in 10 blocks are indirectly lost in loss record 47 of 60
+==1449734==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1449734==    by 0x110B67: ft_calloc (normalizemap.c:16)
+==1449734==    by 0x110BCE: normalize_map (normalizemap.c:39)
+==1449734==    by 0x11017D: create_map (readmap.c:121)
+==1449734==    by 0x10F8D6: initialize (init.c:47)
+==1449734==    by 0x110FF4: main (main.c:27)
+
+
+==1449734== 88 bytes in 1 blocks are indirectly lost in loss record 30 of 60
+==1449734==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1449734==    by 0x10F09F: ft_split (ft_split.c:39)
+==1449734==    by 0x10FEEE: read_map (readmap.c:67)
+==1449734==    by 0x11012A: create_map (readmap.c:118)
+==1449734==    by 0x10F8D6: initialize (init.c:47)
+==1449734==    by 0x110FF4: main (main.c:27)
+==1449734== 
+
+
+==1449734== 32 bytes in 1 blocks are indirectly lost in loss record 18 of 60
+==1449734==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1449734==    by 0x110651: init_texture (createtexture.c:10)
+==1449734==    by 0x1109D6: check_format (createtexture.c:73)
+==1449734==    by 0x110AFD: create_textures (createtexture.c:93)
+==1449734==    by 0x10FFED: load_sprites (readmap.c:89)
+==1449734==    by 0x1100F0: create_map (readmap.c:116)
+==1449734==    by 0x10F8D6: initialize (init.c:47)
+==1449734==    by 0x110FF4: main (main.c:27)

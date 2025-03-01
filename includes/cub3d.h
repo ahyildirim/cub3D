@@ -132,6 +132,8 @@ void	free_data(t_data *data);
 void	free_map(t_data *data);
 void	free_textures(t_data *data);
 void	free_img(t_data *data);
+void	free_arr(char **arr);
+void	end_gnl(int fd);
 
 t_raycast	create_ray(t_raycast *ray, t_data *data);
 t_raycast	calc_ray_len(t_raycast *ray, t_data *data);

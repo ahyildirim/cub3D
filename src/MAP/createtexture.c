@@ -37,14 +37,14 @@ static int	get_color(t_data *data, char *path)
 	i = 0;
 	rgb = ft_split(path, ',');
 	if (!rgb)
-		return (printf("Error: Invalid color format!\n"), 1);
+		return (printf("Error: Invalid color format!\n"), free_arr(rgb), 1);
 	while (rgb[i])
 		i++;
 	if (i != 3)
-		return (printf("Error: Invalid color format!\n"), 1);
+		return (printf("Error: Invalid color format!\n"), free_arr(rgb), 1);
 	color = ft_atoi(rgb[0]) << 16 | ft_atoi(rgb[1]) << 8 | ft_atoi(rgb[2]);
 	if (color < 0)
-		return (printf("Error: Invalid color format!\n"), 1);
+		return (printf("Error: Invalid color format!\n"), free_arr(rgb), 1);
 	if (!ft_strncmp(path, "F ", 2))
 		data->texture.bottom = color;
 	else
@@ -87,6 +87,8 @@ static int	check_format(t_data *data, char *path)
 
 int	create_textures(t_data *data, char *path)
 {
+	if (!path)
+		return (1);
 	trim_spaces(path);
 	if (!ft_strncmp(path, "\n", 1))
 		return (0);

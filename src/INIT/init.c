@@ -39,20 +39,20 @@ int initialize_img(t_data *data)
 
 int initialize(t_data *data, char **av)
 {
-	data->texture.bottom = 0;
-	data->texture.top = 0;
+	data->texture.bottom = -1;
+	data->texture.top = -1;
 	(data)->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (0);
 	if (!create_map(data, av[1]))
 		return (0);
+	data->map->players = 0;
+	if (!initialize_player(data))
+		return (0);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
 	if (!data->win_ptr)
 		return (0);
 	init_key_events(data);
-	data->map->players = 0;
-	if (!initialize_player(data))
-		return (0);
 	if (!initialize_img(data))
 		return (0);
 	mlx_hook(data->win_ptr, ON_KEYUP, 1L << 1, key_up, data);

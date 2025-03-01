@@ -41,7 +41,10 @@ int normalize_map(char **map, int width)
 		while (map[i][++j])
 		{
 			if (!ft_strchr("10NSE W", map[i][j]))
+			{
+				free(tmp);
 				return (0);
+			}
 			tmp[j] = map[i][j];
 		}
 		while (++j < width)

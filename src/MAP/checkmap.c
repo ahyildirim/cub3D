@@ -23,6 +23,8 @@ static int	check_horizontal(char **map, int i, int j, int flag)
 					return (0);
 				flag ^= 1;
 			}
+			if (!map[i][j + 1] && ft_strchr("NSEW0", map[i][j]))
+				return (0);
 		}
 	}
 	return (1);

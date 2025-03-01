@@ -6,10 +6,25 @@
 static int	check_extension(char *av)
 {
 	size_t	len;
+	char **str;
+	int i;
 
+	i = 0;
+	str = ft_split(av, '/');
+	while (str[i])
+		i++;
+	if (ft_strlen(str[i - 1]) < 5)
+	{
+		free_arr(str);
+		return (0);
+	}
 	len = ft_strlen(av) - 4;
 	if (ft_strcmp(av + len, ".cub"))
+	{
+		free_arr(str);
 		return (1);
+	}
+	free_arr(str);
 	return (0);
 }
 
@@ -61,9 +76,9 @@ static char	**read_map(t_data *data, int fd)
 	map_text = read_map_text(fd); //Tüm içerği al.
 	if (!map_text)
 		return (0);
-	double_newline = ft_strnstr(map_text, "\n\n", ft_strlen(map_text)); //Eğer map texti içinde iki adet newline varsa hatalıdır. Bunu kontrol et.
+	double_newline = ft_strnstr(map_text, "\n\n1", ft_strlen(map_text)); //Eğer map texti içinde iki adet newline varsa hatalıdır. Bunu kontrol et.
 	if (double_newline)
-		return (0);
+		return (free(map_text), NULL);
 	map = ft_split(map_text, '\n'); //Split ile mapi \n itibari ile böl.
 	free(map_text);
 	data->map->height = 0;
@@ -89,12 +104,16 @@ int	load_sprites(int fd, t_data *data)
 		if (create_textures(data, sprite_path)) //Sprite'ları yükleme.
 		{
 			free(sprite_path);
+			end_gnl(fd);
 			return (0);
 		}
 		free(sprite_path);
-		if (data->texture.bottom && data->texture.top)
+		if (data->texture.bottom != -1 && data->texture.top != -1 && 
+			data->texture.xpm[0] && data->texture.xpm[1] && data->texture.xpm[2] && data->texture.xpm[3])
 			break;
 	}
+	if (data->texture.bottom == -1 || data->texture.top == -1)
+		return (0);
 	return (1);
 }
 
@@ -108,7 +127,7 @@ int	create_map(t_data *data, char *map_name)
 
 	data->map = (t_map *)malloc(sizeof(t_map));
 	if (ft_strlen(map_name) < 5 || !check_extension(map_name)) //Sadece .cub isimli dosya veya .cub uzantısı olmayan dosya kontrolü.
-		return (error_free("Wrong file format! Usage: map_name.cub\n", data, 0));
+		return (error_free("Wrong file format! Usage: map_name.cub", data, 0));
 	fd = open(map_name, O_RDONLY); //Dosyayı açma.
 	if (fd < 0)
 		return (error_free("File not found!", data, 0));

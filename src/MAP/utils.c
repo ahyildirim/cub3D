@@ -19,7 +19,7 @@ void trim_spaces(char *str)
 	{
 		if (str[i] != ' ' && str[i] != '\t')
 			str[j++] = str[i];
-		else if (j > 0 && (str[j - 1] != ' ' || str[j - 1] != '\t')) // Birden fazla boşluk varsa tekine indir
+		else if (j > 0 && (str[j - 1] != ' ' && str[j - 1] != '\t')) // Birden fazla boşluk varsa tekine indir
 			str[j++] = ' ';
 		i++;
 	}
@@ -37,4 +37,16 @@ void clear_newline(char *str)
 	while(i >= 0 && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
 		i--;
 	str[i + 1] = '\0';
+}
+
+void	end_gnl(int fd)
+{
+	char *tmp;
+
+	tmp = get_next_line(fd);
+	while (tmp)
+	{
+		free(tmp);
+		tmp = get_next_line(fd);
+	}
 }

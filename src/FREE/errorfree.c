@@ -4,7 +4,7 @@ int	error_free(char *msg, t_data *data, int error_mod)
 {
 	if(error_mod == 0)
 	{
-		printf("%s", msg);
+		printf("%s\n", msg);
 		if (data->mlx_ptr)
 		{
 			mlx_destroy_display(data->mlx_ptr);
